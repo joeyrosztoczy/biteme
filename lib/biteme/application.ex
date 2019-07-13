@@ -11,9 +11,10 @@ defmodule Biteme.Application do
       # Start the Ecto repository
       Biteme.Repo,
       # Start the endpoint when the application starts
-      BitemeWeb.Endpoint
+      BitemeWeb.Endpoint,
+      {ConCache, [name: :slug_cache, ttl_check_interval: false]},
       # Starts a worker by calling: Biteme.Worker.start_link(arg)
-      # {Biteme.Worker, arg},
+      {Biteme.Cache, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
