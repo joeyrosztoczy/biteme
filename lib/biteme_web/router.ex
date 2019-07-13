@@ -9,5 +9,6 @@ defmodule BitemeWeb.Router do
     pipe_through :api
 
     resources "/urls", UrlController, only: [:create, :show, :delete]
+    get "/:short_url", UrlController, :short_url_redirect
   end
 end

@@ -21,12 +21,14 @@ defmodule BitemeWeb.UrlControllerTest do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
 
-  # describe "index" do
-  #  test "lists all urls", %{conn: conn} do
-  #    conn = get(conn, Routes.url_path(conn, :index))
-  #    assert json_response(conn, 200)["data"] == []
-  #  end
-  # end
+  describe "redirect short url" do
+    test "redirects", %{conn: conn} do
+      {:ok, url} = Shortener.create_url(@create_attrs)
+      short_url = Base62.encode(url.id)
+      conn = get(conn, Routes.url_path(conn, :short_url_redirect, short_url))
+      assert conn.status == 302
+    end
+  end
 
   describe "create url" do
     test "renders url when data is valid", %{conn: conn} do

@@ -13,5 +13,6 @@ defmodule Biteme.Shortener.Url do
     url
     |> cast(attrs, [:original_url])
     |> validate_required([:original_url])
+    |> unique_constraint(:original_url)
   end
 end

@@ -20,6 +20,13 @@ defmodule BitemeWeb.UrlController do
     end
   end
 
+  def short_url_redirect(conn, %{"short_url" => short_url}) do
+    # Take short URL, and use it to get the long URL.
+    {:ok, id} = Base62.decode(short_url)
+    url = Shortener.get_url!(id)
+    redirect(conn, external: url.original_url)
+  end
+
   def show(conn, %{"id" => id}) do
     url = Shortener.get_url!(id)
     render(conn, "show.json", url: url)
