@@ -50,9 +50,13 @@ defmodule Biteme.Shortener do
 
   """
   def create_url(attrs \\ %{}) do
-    %Url{}
-    |> Url.changeset(attrs)
-    |> Repo.insert()
+    {:ok, url} =
+      %Url{}
+      |> Url.changeset(attrs)
+      |> Repo.insert()
+
+    Biteme.Cache.insert_url(url)
+    {:ok, url}
   end
 
   @doc """
