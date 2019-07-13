@@ -7,5 +7,7 @@ defmodule BitemeWeb.Router do
 
   scope "/api", BitemeWeb do
     pipe_through :api
+
+    resources "/urls", UrlController, only: [:create, :show, :delete]
   end
 end
